@@ -8,6 +8,8 @@ MacOS 用户可使用 iTerm2 整合的 Tmux
 
 使用方法, 请看文档: https://www.iterm2.com/documentation-tmux-integration.html
 
+**Notice**: 远程服务器也能使用, 但 tmux 版本至少为 **1.8**, 但推荐 2.3 及之后
+
 ## 配置
 
 有时候需要使用原生 tmux, 此时使用该[配置](tmux.conf)
@@ -27,6 +29,12 @@ tmux a [-t session-name]
 
 # 列出所有 session
 tmux ls
+
+# 关闭特定的 session
+tmux kill-session -t session-name
+
+# 关闭所有 session
+tmux kill-server
 ```
 
 ```sh
@@ -52,6 +60,9 @@ prefix-c
 # 列出所有 window
 prefix-w
 
+# 关闭当前 window
+prefix-&
+
 # 前一个 window
 prefix-p
 
@@ -76,6 +87,9 @@ prefix-|
 
 # 水平分割
 prefix--
+
+# 关闭当前 pane
+prefix-x
 
 # 显示 pane 编号，在编号消失前输入对应的数字可切换到相应的 pane
 prefix-q
