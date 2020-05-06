@@ -5,8 +5,10 @@
 ```sh
 # built-in theme
 ZSH_THEME="ys"
+# or
+ZSH_THEME="agnoster"
 # or pure, link: https://github.com/sindresorhus/pure
-fpath+=("$HOME/.zsh/pure")
+ZSH_THEME=""
 autoload -U promptinit; promptinit
 prompt pure
 
@@ -19,9 +21,9 @@ plugins=(
 )
 
 alias j="jump"
-alias vi="nvim"
 alias rt="trash-put"
-alias vim="nvim"
+alias vi='nvim'
+alias vim='nvim --cmd "let g:plugin_level=1"'
 alias cp="cp -i"
 
 export LANG=zh_CN.UTF-8

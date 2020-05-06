@@ -37,3 +37,33 @@ ORDER BY col1 <ASC|DESC>, col2 <ASC|DESC>...
 SELECT col, COUNT(col) from table_name
 GROUP BY col HAVING COUNT(col) > 1;
 ```
+
+## 更新
+
+```sql
+UPDATE table_name SET field1=new-value1, field2=new-value2
+[WHERE Clause]
+```
+
+替换某个字段中的某些字符
+
+```sql
+UPDATE table_name SET field=REPLACE(field, 'old-string', 'new-string') 
+[WHERE Clause]
+```
+
+例如: 更新 runoob_id 为 3 的 runoob_title 字段值的 "C++" 替换为 "Python"
+
+```sql
+UPDATE runoob_tbl SET runoob_title = REPLACE(runoob_title, 'C++', 'Python') where 
+runoob_id = 3;
+```
+
+## 字段类型为 json 的查询
+
+查询 json 中的数据用 *column->path* 的形式，其中对象类型 path 这样表示 *$.path*, 而数组类型则是 *$[index]*
+
+```sql
+SELECT id, category->'$.id', category->'$.name', tags->'$[0]', tags->'$[2]' FROM lnmp;
+```
+
