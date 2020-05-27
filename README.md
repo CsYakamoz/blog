@@ -19,3 +19,5 @@
 [shell](article/shell/README.md)
 
 [tmux](article/tmux/README.md)
+
+[vim](article/vim/README.md)

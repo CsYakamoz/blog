@@ -1,5 +1,5 @@
 # Vim
 
-[标记](my_mark.md)
+[基础](basic.md)
 
 [文本对象](text-objects.md)
