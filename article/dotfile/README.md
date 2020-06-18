@@ -31,14 +31,43 @@ export LC_ALL=zh_CN.UTF-8
 
 # easily switch git worktree, required fzf
 esgwt() {
-  if [[ ! -e .git ]]; then
+  if ! git worktree list > /dev/null 2>&1; then
     echo 'no a git repository'
     return
   fi
 
-  local dir=$(git worktree list | awk '{print $1}' | fzf -1)
+  local count=""
+  count=$(git worktree list | awk '{print $1}' | wc -l)
+  if [[ "${count}" == *1 ]]; then
+    return
+  fi
 
-  if [[ -n $dir ]]; then
+  # lcp => longest common parent (dir)
+  local lcp=""
+  local worktreePath=""
+
+  for worktreePath in $(git worktree list | awk '{print $1}'); do
+    if [[ -z "${lcp}" ]]; then
+      lcp="${worktreePath}"
+    else
+      while [[ ! "${worktreePath}" =~ ^${lcp} ]]; do
+        lcp=$(dirname "${lcp}")
+      done
+    fi
+  done
+
+  if [[ "${lcp}" != "/" ]]; then
+    lcp+="/"
+  fi
+
+  local target=""
+  target=$(git worktree list | awk '{print $1, $3}' | while read -r worktreePath; do echo "${worktreePath#${lcp}}"; done | fzf -1)
+  if [[ -z "${target}" ]]; then
+    return
+  fi
+
+  local dir="${lcp}/${target% *}"
+  if [[ -n "${dir}" ]]; then
     cd "${dir}" || return
   fi
 }
