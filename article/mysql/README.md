@@ -52,7 +52,7 @@ UPDATE table_name SET field=REPLACE(field, 'old-string', 'new-string')
 [WHERE Clause]
 ```
 
-例如: 更新 runoob_id 为 3 的 runoob_title 字段值的 "C++" 替换为 "Python"
+例如: 更新 runoob\_id 为 3 的 runoob\_title 字段值的 "C++" 替换为 "Python"
 
 ```sql
 UPDATE runoob_tbl SET runoob_title = REPLACE(runoob_title, 'C++', 'Python') where 

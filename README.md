@@ -8,6 +8,8 @@
 
 [dotfile](article/dotfile/README.md)
 
+[git](article/git/README.md)
+
 [javascript](article/javascript/README.md)
 
 [macos](article/macos/README.md)
