@@ -1,6 +1,11 @@
 # Dot File
 
-## oh-my-zsh
+## .zshrc(oh-my-zsh)
+
+Non-built-in plugins:
+
+- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
+- [fast-syntax-highlighting](https://github.com/zdharma/fast-syntax-highlighting)
 
 ```sh
 # built-in theme
@@ -83,3 +88,18 @@ link: [vimrc](https://github.com/CsYakamoz/vimrc)
 ## tmux
 
 link: [tmux](../tmux/README.md)
+
+## .Xmodmap
+
+CapsLock 映射成 ControlL
+
+Shift + CapsLock 映射成 CapsLock
+
+```xmodmap
+clear lock
+clear control
+add control = Caps_Lock Control_L Control_R
+keycode 66 = Control_L Caps_Lock NoSymbol NoSymbol
+```
+
+reference: [ArchWiki Xmodmap](<https://wiki.archlinux.org/index.php/Xmodmap_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)>)
