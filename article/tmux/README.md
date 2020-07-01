@@ -122,6 +122,12 @@ prefix-!
 
 `prefix-?` 显示快捷键帮助文档
 
+`join-pane -s [session-name:]window-index.pane-index` 将(其它 session 下的) window 中的 pane 合并到当前 window
+
+其中 window-index 也可以用 window-name
+
+> `swap-pane` 语法与 `join-pane` 类似
+
 ## 参考
 
 [Tmux 使用手册](http://louiszhai.github.io/2017/09/30/tmux/)
