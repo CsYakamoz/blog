@@ -1,37 +1,55 @@
+#!/usr/bin/env node
+
 const fs = require("fs");
-const { join, relative } = require("path");
+const { join, relative, basename } = require("path");
 
 const ARTICLE_DIR = join(__dirname, "article");
 
 const README_NAME = "README.md";
+const EOF = "\n\n";
 
-function getContent(dirPath) {
-  let content = "";
-  const prefix = `## Article\n\n`;
+function handleDirectory(dirPath) {
+  const content = fs
+    .readdirSync(dirPath)
+    .filter((name) => name !== README_NAME && name.endsWith(".md"))
+    .map((name) => ({
+      name,
+      path: join(dirPath, name),
+    }))
+    .reduce((content, { name, path }) => {
+      const prefix = "- ";
+      const relativePath = relative(__dirname, path);
 
-  const fileObjList = fs.readdirSync(dirPath).map((name) => ({
-    name,
+      return content + prefix + `[${basename(name, ".md")}](${relativePath})\n`;
+    }, "");
 
-    path: join(dirPath, name),
-    isDirectory: fs.statSync(join(dirPath, name)).isDirectory(),
-  }));
+  return content.length !== 0 ? content + "\n" : content;
+}
 
-  for (const fileObj of fileObjList) {
-    if (fileObj.isDirectory) {
-      const relativePath = join(relative(__dirname, fileObj.path), README_NAME);
-      content += `[${fileObj.name}](${relativePath})\n\n`;
-    } else {
-      const relativePath = relative(__dirname, fileObj.path);
-      content += `[${fileObj.name}](${relativePath})\n\n`;
-    }
-  }
+function getArticle(dirPath) {
+  const prefix = `## Article${EOF}`;
+
+  const content = fs
+    .readdirSync(dirPath)
+    .map((name) => ({
+      name,
+
+      path: join(dirPath, name),
+    }))
+    .reduce((content, { name, path }) => {
+      const relativePath = relative(__dirname, path);
+      content += `[${name}](${relativePath})\n\n`;
+      content += handleDirectory(path);
+
+      return content;
+    }, "");
 
   return prefix + content.trimRight();
 }
 
 function main() {
-  const prefix = `# blog\n\n**Legen - wait for it - dary! Legendary!**\n\n`;
-  const content = getContent(ARTICLE_DIR);
+  const prefix = `# blog${EOF}**Legen - wait for it - dary! Legendary!**${EOF}`;
+  const content = getArticle(ARTICLE_DIR);
 
   fs.writeFileSync(join(__dirname, README_NAME), prefix + content + "\n");
 }

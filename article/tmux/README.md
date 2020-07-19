@@ -4,7 +4,7 @@
 
 > iTerm2 is integrated with tmux, allowing you to enjoy a native user interface with all the benefits of tmux's persistence.
 
-MacOS 用户可使用 iTerm2 整合的 Tmux
+MacOS 用户建议使用 iTerm2 整合的 Tmux
 
 使用方法, 请看文档: https://www.iterm2.com/documentation-tmux-integration.html
 
@@ -13,6 +13,12 @@ MacOS 用户可使用 iTerm2 整合的 Tmux
 ## 配置
 
 有时候需要使用原生 tmux, 此时使用该[配置](tmux.conf)
+
+## 安装
+
+```sh
+curl 'https://raw.githubusercontent.com/CsYakamoz/blog/master/article/tmux/tmux.conf' -o "${HOME}/.tmux.conf"
+```
 
 ## 常用快捷键
 
@@ -133,4 +139,3 @@ prefix-!
 [Tmux 使用手册](http://louiszhai.github.io/2017/09/30/tmux/)
 
 [Tmux 快捷键 & 速查表 & 简明教程](https://gist.github.com/ryerh/14b7c24dfd623ef8edc7)
-

@@ -77,7 +77,7 @@ esgwt() {
   fi
 }
 
-# vscode need it when using manjaro operating system
+# vscode maybe need it when using manjaro operating system
 # export ELECTRON_TRASH=gio
 ```
 

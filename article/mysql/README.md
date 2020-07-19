@@ -45,7 +45,7 @@ UPDATE table_name SET field1=new-value1, field2=new-value2
 [WHERE Clause]
 ```
 
-替换某个字段中的某些字符
+### 替换某个字段中的某些字符
 
 ```sql
 UPDATE table_name SET field=REPLACE(field, 'old-string', 'new-string') 
