@@ -35,6 +35,8 @@
 - [交换机类型](article/rabbit-mq/交换机类型.md)
 - [基础](article/rabbit-mq/基础.md)
 
+[rime](article/rime)
+
 [shell](article/shell)
 
 - [基础](article/shell/基础.md)
