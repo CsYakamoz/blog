@@ -31,6 +31,9 @@ alias vi='nvim -u ~/.config/nvim/minimal.vim'
 alias vim='nvim'
 alias cp="cp -i"
 
+alias proxy="export http_proxy=http://127.0.0.1:8001;export https_proxy=http://127.0.0.1:8001;export HTTP_PROXY=http://127.0.0.1:8001;export HTTPS_PROXY=http://127.0.0.1:8001;"
+alias unproxy="unset http_proxy;unset https_proxy;unset HTTP_PROXY;unset HTTPS_PROXY;"
+
 export LANG=zh_CN.UTF-8
 export LC_ALL=zh_CN.UTF-8
 
@@ -76,6 +79,29 @@ esgwt() {
     cd "${dir}" || return
   fi
 }
+
+# require: realpath, neovim-remote, vim-floaterm
+vopen() {
+  if [ -z "$1" ]; then
+    echo "usage: vopen {filename}"
+    return
+  fi
+
+  if [ -z "$NVIM_LISTEN_ADDRESS" ]; then
+    echo "must be called inside neovim"
+    return
+  fi
+
+  name=$(realpath "${1}")
+  if [[ ! -f "${name}" ]]; then
+    echo "no such file: ${name}"
+    return
+  fi
+
+  nvr --servername "${NVIM_LISTEN_ADDRESS}" -l "${name}"
+  nvr --servername "${NVIM_LISTEN_ADDRESS}" -l --remote-send "<Esc>:FloatermToggle<CR>"
+}
+
 
 # vscode maybe need it when using manjaro operating system
 # export ELECTRON_TRASH=gio
