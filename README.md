@@ -4,8 +4,6 @@
 
 ## Article
 
-[command-line-tool](article/command-line-tool)
-
 [dotfile](article/dotfile)
 
 [git](article/git)
@@ -45,6 +43,8 @@
 - [彩色打印](article/shell/彩色打印.md)
 - [模板字符串](article/shell/模板字符串.md)
 - [逐行处理文本](article/shell/逐行处理文本.md)
+
+[software](article/software)
 
 [tmux](article/tmux)
 
