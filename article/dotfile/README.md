@@ -31,8 +31,8 @@ alias vi='nvim -u ~/.config/nvim/minimal.vim'
 alias vim='nvim'
 alias cp="cp -i"
 
-alias proxy="export http_proxy=http://127.0.0.1:8001;export https_proxy=http://127.0.0.1:8001;export HTTP_PROXY=http://127.0.0.1:8001;export HTTPS_PROXY=http://127.0.0.1:8001;"
-alias unproxy="unset http_proxy;unset https_proxy;unset HTTP_PROXY;unset HTTPS_PROXY;"
+alias proxy_on="export http_proxy=http://127.0.0.1:8001;export https_proxy=http://127.0.0.1:8001;export HTTP_PROXY=http://127.0.0.1:8001;export HTTPS_PROXY=http://127.0.0.1:8001;"
+alias proxy_off="unset http_proxy;unset https_proxy;unset HTTP_PROXY;unset HTTPS_PROXY;"
 
 export LANG=zh_CN.UTF-8
 export LC_ALL=zh_CN.UTF-8
