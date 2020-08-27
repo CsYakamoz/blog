@@ -40,44 +40,64 @@ export LC_ALL=zh_CN.UTF-8
 # easily switch git worktree, required fzf
 esgwt() {
   if ! git worktree list > /dev/null 2>&1; then
-    echo 'no a git repository'
+    echo 'not a git repository, ignore...'
     return
   fi
+
+  local worktree_list=""
+  worktree_list=$(git worktree list)
 
   local count=""
-  count=$(git worktree list | awk '{print $1}' | wc -l)
+  count=$(echo "${worktree_list}" | wc -l)
   if [[ "${count}" == *1 ]]; then
+    echo 'only one worktree, ignore...'
     return
   fi
 
-  # lcp => longest common parent (dir)
-  local lcp=""
-  local worktreePath=""
+  local loop_var=""
 
-  for worktreePath in $(git worktree list | awk '{print $1}'); do
+  # lcp -> longest common parent (dir)
+  local lcp=""
+  while read -r loop_var; do
     if [[ -z "${lcp}" ]]; then
-      lcp="${worktreePath}"
+      lcp="${loop_var}"
     else
-      while [[ ! "${worktreePath}" =~ ^${lcp} ]]; do
+      while [[ ! "${loop_var}" =~ ^${lcp} ]]; do
         lcp=$(dirname "${lcp}")
       done
     fi
-  done
+  done < <(echo "${worktree_list}" | awk '{print $1}')
 
   if [[ "${lcp}" != "/" ]]; then
     lcp+="/"
   fi
 
-  local target=""
-  target=$(git worktree list | awk '{print $1, $3}' | while read -r worktreePath; do echo "${worktreePath#${lcp}}"; done | fzf -1)
-  if [[ -z "${target}" ]]; then
+  local current_dir=""
+  current_dir=$(pwd)
+
+  local list=""
+  local header=""
+  while read -r loop_var; do
+    local suffix="${loop_var#${lcp}}"
+    if [[ "${loop_var}" == "${current_dir}"* ]]; then
+      header="${suffix}"
+    else
+      if [[ -n "${list}" ]]; then
+        list+="\n"
+      fi
+      list+="${suffix}"
+    fi
+  done < <(echo "${worktree_list}" | awk '{print $1, $3}')
+  list="${header}\n$(echo "${list}" | sort)"
+
+  local chosen=""
+  chosen=$(echo "${list}" | fzf --header-lines=1 --prompt 'Worktree> ')
+  if [[ -z "${chosen}" ]]; then
     return
   fi
 
-  local dir="${lcp}/${target% *}"
-  if [[ -n "${dir}" ]]; then
-    cd "${dir}" || return
-  fi
+  local target="${lcp}/${chosen% *}"
+  cd "${target}" || return
 }
 
 # require: realpath, neovim-remote, vim-floaterm
